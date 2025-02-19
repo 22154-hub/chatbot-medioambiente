@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot de Medio Ambiente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .chat-container {
+            width: 50%;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background: #f9f9f9;
+            text-align: left;
+        }
+        .input-container {
+            display: flex;
+            margin-top: 10px;
+        }
+        input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        button:hover {
+            background-color: #1b5e20;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>🤖 Chatbot de Reciclaje 🌱</h2>
+        <div class="chat-box" id="chatBox">
+            <p><strong>Chatbot:</strong> ¡Hola! Pregúntame sobre reciclaje o el medio ambiente.</p>
+        </div>
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="Escribe tu pregunta...">
+            <button onclick="enviarPregunta()">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        function enviarPregunta() {
+            let input = document.getElementById("userInput").value.toLowerCase().trim();
+            let chatBox = document.getElementById("chatBox");
+
+            let respuestas = [
+                { key: ["reciclaje", "que es el reciclaje"], response: "El reciclaje es el proceso de convertir materiales usados en nuevos productos para evitar el desperdicio y reducir la contaminación." },
+                { key: ["importante reciclar", "por que reciclar"], response: "Reciclar ayuda a reducir la contaminación, conservar recursos naturales y disminuir los desechos en vertederos." },
+                { key: ["cómo reciclar", "formas de reciclar"], response: "Puedes reciclar separando residuos orgánicos e inorgánicos, reutilizando materiales y reduciendo el uso de plásticos." },
+                { key: ["colores de los contenedores", "tarros de basura"], response: "📦 Azul: papel/cartón. 🍾 Verde: vidrio. 🥤 Amarillo: plásticos/metales. 🍌 Marrón: orgánicos." },
+                { key: ["materiales reciclables", "que se puede reciclar"], response: "Se pueden reciclar papel, cartón, vidrio, plásticos, metales y algunos tipos de electrónicos." },
+                { key: ["contaminación ambiental", "que es la contaminacion"], response: "Es la introducción de sustancias dañinas en el medio ambiente, afectando la salud humana y la biodiversidad." },
+                { key: ["cómo reducir la contaminación", "reducir la contaminacion"], response: "Puedes reducir la contaminación usando menos plásticos, reciclando, ahorrando agua y energía, y usando transporte sostenible." },
+                { key: ["cambio climático", "qué es el cambio climático"], response: "El cambio climático es el aumento de la temperatura global debido a la actividad humana y la emisión de gases de efecto invernadero." },
+                { key: ["qué es el calentamiento global", "calentamiento global"], response: "El calentamiento global es el aumento progresivo de la temperatura de la Tierra debido al uso excesivo de combustibles fósiles y la deforestación." },
+                { key: ["efecto invernadero", "qué es el efecto invernadero"], response: "El efecto invernadero es un fenómeno natural que permite mantener la temperatura de la Tierra, pero el exceso de gases como CO₂ lo intensifica y causa el calentamiento global." },
+                { key: ["deforestación", "qué es la deforestación"], response: "La deforestación es la eliminación masiva de árboles, afectando los ecosistemas, reduciendo la biodiversidad y contribuyendo al cambio climático." },
+                { key: ["energías renovables", "qué son energías renovables"], response: "Las energías renovables son fuentes de energía que se regeneran naturalmente, como la solar, eólica, hidroeléctrica y geotérmica." },
+                { key: ["cómo ahorrar agua", "formas de ahorrar agua"], response: "Puedes ahorrar agua cerrando el grifo al cepillarte los dientes, usando regaderas eficientes y recolectando agua de lluvia para riego." },
+                { key: ["beneficios de plantar árboles", "por qué plantar árboles"], response: "Plantar árboles mejora la calidad del aire, absorbe CO₂, protege la biodiversidad y reduce la erosión del suelo." },
+                { key: ["cómo reducir el plástico", "menos plástico"], response: "Puedes reducir el plástico usando bolsas reutilizables, botellas de vidrio y evitando productos con exceso de empaques." },
+                { key: ["qué hacer con la basura electrónica", "reciclaje de electrónicos"], response: "Los dispositivos electrónicos deben llevarse a centros especializados de reciclaje para evitar la contaminación con metales pesados." },
+                { key: ["cómo hacer compost", "qué es el compost"], response: "El compost es un abono natural hecho con residuos orgánicos como cáscaras de frutas y restos de vegetales, ideal para fertilizar plantas." }
+            ];
+
+            let respuestaEncontrada = "No entiendo tu pregunta. Intenta preguntar algo sobre reciclaje o medio ambiente.";
+
+            for (let obj of respuestas) {
+                for (let palabra of obj.key) {
+                    if (input.includes(palabra)) {
+                        respuestaEncontrada = obj.response;
+                        break;
+                    }
+                }
+            }
+
+            chatBox.innerHTML += `<p><strong>Tú:</strong> ${input}</p>`;
+            chatBox.innerHTML += `<p><strong>Chatbot:</strong> ${respuestaEncontrada}</p>`;
+
+            document.getElementById("userInput").value = ""; 
+            chatBox.scrollTop = chatBox.scrollHeight; 
+        }
+    </script>
+</body>
+</html>
